@@ -1,0 +1,79 @@
+  .bg-body-tertiary {
+    background-color: #F7F7F5!important;
+  }
+  
+  .collapse.navbar-collapse {
+    justify-content: end;
+  }
+  
+  .colab-asoc a:hover {
+    color: #4686b4;
+  }
+  
+  .colab-asoc a{
+    color: #313131;
+    font-size: 14px;
+  }
+
+  a.nav-link:nth-child(2) {
+    padding-right: 0px;
+  }
+
+  .navbar-light .navbar-toggler  .navbar-toggler-icon {
+    background-image: url("/img/menu.png");
+    width: 35px;
+    height: 35px;
+    fill: #285d83;
+  }
+
+  button.navbar-toggler {
+    border: none;
+  }
+
+  img {
+    width:85px;
+    height:65px;
+  }
+
+  .active {
+    color: #58a8e0!important;
+  }
+
+
+  /* Responsive */
+
+  @media (max-width: 991px) { 
+
+    .colab-asoc a:nth-child(1){
+      margin-top: 1.6rem;
+    }
+
+    .colab-asoc a{
+      margin-top: 0.1rem;
+    }
+
+    button.navbar-toggler.collapsed {
+      border: none!important;
+    }
+
+   .navbar-toggler:focus,
+   .navbar-toggler:active,
+   .navbar-toggler-icon:focus {
+          outline: none;
+          box-shadow: none;
+    }
+
+    div.colab-asoc.navbar-nav {
+      margin: 10px;
+    }
+
+  }
+
+
+@media (max-width: 500px ) { 
+  img {
+    width:80px;
+    height:50px;
+  }
+
+}

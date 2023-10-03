@@ -1,0 +1,16 @@
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: var(--fuentes);
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  line-height: 1.5;
+  width: 100%;
+  font-family: var(--fuentes);
+  background-color: #F7F7F5;
+}

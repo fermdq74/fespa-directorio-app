@@ -1,0 +1,102 @@
+.option-set input,
+.option-set label {
+    margin-bottom: 5px;
+    margin-left: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.multiselect {
+    width: 200px;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+}
+
+.multiselect label {
+    width: 245px;
+    padding: 5px;
+    display: inline-block;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.multiselect label input[type="checkbox"] {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.selectBox, .selectBoxx {
+    position: relative;
+}
+
+.selectBox select, .selectBoxx select{
+    width: 245px !important;
+    height: 43px;
+    margin-left: 10px;
+    background-color: #F7F7F5;
+    border-radius: 5px;
+    position: relative;
+}
+
+.overSelect {
+    position: absolute;
+    left: 10px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 245px !important;
+}
+
+#checkboxes, #checkboxess {
+    display: none;
+    width: 245px !important;
+    background-color: white;
+    margin-left: 10px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    max-height: 200px; 
+    overflow-y: auto; 
+    overflow-x: hidden;
+}
+
+#checkboxes label, #checkboxess label {
+    display: block;
+}
+
+#checkboxes label:hover, #checkboxess label:hover {
+    background-color: #d4e4f1;
+}
+
+.selectBox select, .selectBoxx select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    background-color: transparent;
+}
+
+.selectBox .custom-option, .selectBoxx .custom-option {
+    padding: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+@media (max-width: 992px) {
+    .multiselect label {
+        width: 310px;
+    }
+
+    .selectBox select, .selectBoxx select{
+        width: 310px !important;
+    }
+
+    .overSelect {
+        width: 310px !important;
+    }
+
+    
+#checkboxes, #checkboxess {
+    width: 310px !important;
+}
+    
+    
+}

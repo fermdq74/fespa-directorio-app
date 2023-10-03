@@ -1,0 +1,88 @@
+.css-2m9kme-MuiFormControl-root {
+    width: 245px !important;
+}
+
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding: 10px !important;
+}
+
+#demo-multiple-checkbox-label {
+    font-size: 14px !important;
+    margin-top: -4px;
+    color: #272727e3 !important;
+}
+
+.css-10hburv-MuiTypography-root {
+    font-size: 14px !important;
+}
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+    border-radius: 0px;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+    padding: 0 !important;
+    white-space: pre-wrap!important; 
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:focus {
+    background-color: transparent !important;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:hover {
+    background-color: #80abdd46 !important;
+}
+
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
+    background-color: transparent !important;
+}
+
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #272727e3 !important;
+    border-width: 2px;
+}
+
+h2.sector-actividad, h2.localidad {
+    font-size: 18px;
+    font-weight: 600;
+    color: #285d83;
+    text-align: center;
+    margin-top: 6rem;
+    width: 255px;
+}
+
+#asoc, #socio-colab {
+  width: 255px;
+}
+
+#localidad {
+    width: 255px;
+}
+
+div#asoc, div#socio-colab, div#localidad {
+    width: 20rem;
+}
+
+
+
+/* Responsive */
+
+@media (max-width: 992px) {
+
+    .css-2m9kme-MuiFormControl-root {
+        width: 310px !important;
+    }
+
+    div.filtrado {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    h2.sector-actividad, h2.localidad {
+        width: 300px;
+    }
+
+}
+
