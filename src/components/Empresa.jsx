@@ -12,7 +12,7 @@ export default function Empresa({ empresa }) {
   return (
     <>
       <Card id="empresa" style={{ maxWidth: '540px' }} onClick={handleOpenModal}>
-        {empresa.Logo && <Card.Img src={empresa.Logo} alt="..." />}
+        {/*empresa.Logo && <Card.Img src={empresa.Logo} alt="..." />*/}
         <Card.Body className="card-body">
           {empresa.Name && <Card.Title className="card-title">{empresa.Name}</Card.Title>}
           <Card.Text className="card-text">

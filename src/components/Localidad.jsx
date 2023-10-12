@@ -33,9 +33,10 @@ const region = [
   "Salamanca",
   "La Rioja",
   "Lugo"
-];
+].sort();
 
 const provincia = [
+  "Madrid",
   "Almería",
   "Cádiz",
   "Córdoba",
@@ -80,7 +81,7 @@ const provincia = [
   "San Sebastián",
   "Vitoria",
   "Logroño",
-];
+].sort();
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -93,19 +94,23 @@ const MenuProps = {
    },
 };
 
-export default function Localidad() {
+export default function Localidad({filter1, filter2, filter3, provinciaSelection, setProvinciaSelection, regionSelection, setRegionSelection}) {
+  /*
   const [provinciaSelection, setProvinciaSelection] = React.useState([]);
   const [regionSelection, setRegionSelection] = React.useState([]);
+  */
 
   const handleProvinciaChange = (event) => {
     setProvinciaSelection(event.target.value);
-    addFilterItem(event.target.value);
+    addFilterItem([...filter1, ...filter2, ...filter3, ...event.target.value, ...regionSelection]);
+    //addFilterItem(event.target.value);
 
   };
 
    const handleRegionChange = (event) => {
      setRegionSelection(event.target.value);
-     addFilterItem(event.target.value);
+     addFilterItem([...filter1, ...filter2, ...filter3, ...provinciaSelection, ...event.target.value]);
+     //addFilterItem(event.target.value);
    };
 
   const { addFilterItem } = useContext(FilterContext);

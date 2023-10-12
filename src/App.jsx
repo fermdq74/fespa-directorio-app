@@ -5,7 +5,7 @@ import Empresas from './components/Empresas';
 import FilterProvider from "./context/FilterProvider";
 
 function App() {
-
+  
   return (
     <FilterProvider>
       <div className='container'>

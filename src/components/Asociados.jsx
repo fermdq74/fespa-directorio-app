@@ -80,20 +80,26 @@ export default function Asociados(){
   const [tecnologiaSelection, setTecnologiaSelection] = React.useState([]);
   const [especialidadSelection, setEspecialidadSelection] = React.useState([]);
 
+  const [provinciaSelection, setProvinciaSelection] = React.useState([]);
+  const [regionSelection, setRegionSelection] = React.useState([]);
+
 
   const handleProduccionChange = (event) => {
     setProduccionSelection(event.target.value);
-    addFilterItem(event.target.value);
+    addFilterItem([...event.target.value, ...tecnologiaSelection, ...especialidadSelection, ...provinciaSelection, ...regionSelection]);
+    //addFilterItem(event.target.value);
   };
 
   const handleTecnologiaChange = (event) => {
     setTecnologiaSelection(event.target.value);
-    addFilterItem(event.target.value);
+    addFilterItem([...produccionSelection, ...event.target.value, ...especialidadSelection, ...provinciaSelection, ...regionSelection]);
+    //addFilterItem(event.target.value);
   };
 
  const handleEspecialidadChange = (event) => {
     setEspecialidadSelection(event.target.value);
-    addFilterItem(event.target.value);
+    addFilterItem([...produccionSelection, ...tecnologiaSelection, ...event.target.value, ...provinciaSelection, ...regionSelection]);
+    //addFilterItem(event.target.value);
   };
 
   const { addFilterItem } = useContext(FilterContext);
@@ -173,7 +179,7 @@ export default function Asociados(){
       </div>
 
       <div id="localidad">
-      <Localidad/>
+      <Localidad filter1={produccionSelection} filter2={tecnologiaSelection} filter3={especialidadSelection} provinciaSelection={provinciaSelection} setProvinciaSelection={setProvinciaSelection} regionSelection={regionSelection} setRegionSelection={setRegionSelection} />
       </div>
       </>
     );

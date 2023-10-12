@@ -106,20 +106,26 @@ export default function SocioColaboradores(){
   const [fabricanteSelection, setFabricanteSelection] = React.useState([]);
   const [tecnologiaColabSelection, setTecnologiaColabSelection] = React.useState([]);
 
+  const [provinciaSelection, setProvinciaSelection] = React.useState([]);
+  const [regionSelection, setRegionSelection] = React.useState([]);
+
 
   const handleDistribuidorChange = (event) => {
     setDistribuidorSelection(event.target.value);
-    addFilterItem(event.target.value);
+    addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, ...provinciaSelection, ...regionSelection]);
+    //addFilterItem(event.target.value);
   };
 
   const handleFabricanteChange = (event) => {
     setFabricanteSelection(event.target.value);
-    addFilterItem(event.target.value);
+    addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, ...provinciaSelection, ...regionSelection]);
+    //addFilterItem(event.target.value);
   };
 
   const handleTecnologiaColabChange = (event) => {
     setTecnologiaColabSelection(event.target.value);
-    addFilterItem(event.target.value);
+    addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, ...provinciaSelection, ...regionSelection]);
+    //addFilterItem(event.target.value);
   };
 
   const { addFilterItem } = useContext(FilterContext);
@@ -216,7 +222,7 @@ export default function SocioColaboradores(){
       </div>
 
       <div id="localidad">
-        <Localidad />
+        <Localidad filter1={distribuidorSelection} filter2={fabricanteSelection} filter3={tecnologiaColabSelection} provinciaSelection={provinciaSelection} setProvinciaSelection={setProvinciaSelection} regionSelection={regionSelection} setRegionSelection={setRegionSelection} />
       </div>
     </>
   );
