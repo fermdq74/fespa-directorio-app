@@ -35,7 +35,6 @@ export default function Empresas() {
   if (textoFiltradoItem.trim() === '') {
     if (location.pathname === "/socio-colaboradores") {
 
-      /*
       fetch(
         `https://us-central1-fespa-directorio.cloudfunctions.net/getColaboradores`
       )
@@ -46,18 +45,18 @@ export default function Empresas() {
           }
         })
         .finally(() => setIsLoading(false));
-        */
-
+        
+        /*
         let Colab = ColabJson;
         setAllCompanies(Colab);
         setEmpresas(Colab);
         setIsLoading(false);
+        */
     } else if (
       location.pathname === "/asociados" ||
       location.pathname === "/"
     ) {
-
-
+      
       /*
       fetch(
         `https://us-central1-fespa-directorio.cloudfunctions.net/getAsociados`
@@ -69,12 +68,13 @@ export default function Empresas() {
           }
         })
         .finally(() => setIsLoading(false));
-        */
-
+      */  
+        
         let Asoc = AsocJson.results;
         setAllCompanies(Asoc);
         setEmpresas(Asoc);
         setIsLoading(false);
+        
     }
   }
 }, [textoFiltradoItem, location.pathname, empresas]);
