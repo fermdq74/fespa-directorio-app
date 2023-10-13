@@ -42,7 +42,7 @@ export default function Empresa({ empresa }) {
               {empresa.Region && (
                 <div style={{ display: 'flex' }} id="ubicacion">
                   <img className="ubicacion" src="/icon/ubicacion.png" alt="ubicacion" />
-                  <p>{empresa.Region} {empresa.Provincia}. {empresa.Direccion}</p>
+                  <p>{empresa.Direccion}, {empresa.Region}, {empresa.Provincia}</p>
                 </div>
               )}
               {empresa.Contacto && (

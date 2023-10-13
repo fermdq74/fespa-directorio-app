@@ -11,6 +11,7 @@ import SocioColaboradores from "./SocioColaboradores";
 import Cargando from "./Cargando";
 import { useLocation } from "react-router-dom";
 import FilterContext from '../context/FilterContext';
+import { getCompanies } from '../data/companies';
 
 //Tests json
 import AsocJson from "./asocjson.json";
@@ -35,16 +36,26 @@ export default function Empresas() {
   if (textoFiltradoItem.trim() === '') {
     if (location.pathname === "/socio-colaboradores") {
 
-      fetch(
-        `https://us-central1-fespa-directorio.cloudfunctions.net/getColaboradores`
-      )
-        .then((response) => response.json())
-        .then((result) => {
-          if (Array.isArray(result)) {
-            setEmpresas(result);
-          }
-        })
-        .finally(() => setIsLoading(false));
+
+      const fetchData = async () => {
+
+        const data = await getCompanies("getColaboradores")
+          .then(res => {
+            setAllCompanies(res);
+            setEmpresas(res);
+          })
+          .catch( (err) => {
+            console.log(err);
+            setProducts(null);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          })
+
+      }
+
+      fetchData()
+        .catch(console.error);
         
         /*
         let Colab = ColabJson;
@@ -57,23 +68,25 @@ export default function Empresas() {
       location.pathname === "/"
     ) {
       
-      /*
-      fetch(
-        `https://us-central1-fespa-directorio.cloudfunctions.net/getAsociados`
-      )
-        .then((response) => response.json())
-        .then((result) => {
-          if (result && result.results && Array.isArray(result.results)) {
-            setEmpresas(result.results);
-          }
-        })
-        .finally(() => setIsLoading(false));
-      */  
-        
-        let Asoc = AsocJson.results;
-        setAllCompanies(Asoc);
-        setEmpresas(Asoc);
-        setIsLoading(false);
+      const fetchData = async () => {
+
+        const data = await getCompanies()
+          .then(res => {
+            setAllCompanies(res);
+            setEmpresas(res);
+          })
+          .catch( (err) => {
+            console.log(err);
+            setProducts(null);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          })
+
+      }
+
+      fetchData()
+        .catch(console.error);
         
     }
   }
@@ -95,129 +108,145 @@ export default function Empresas() {
   
   useEffect(() => {
 
-    const terminosDeBusqueda = textoFiltradoItem.toLowerCase().split(',');
+    const delay = ms => new Promise(
+      resolve => setTimeout(resolve, ms)
+    );
     
-    //const empresasFiltradasPorTexto = empresas;
-    const empresasFiltradasPorTexto = [];
-    let filterMatch;
-    
-    allCompanies.forEach((empresa) => {
-      filterMatch = false;
-      
-      terminosDeBusqueda.forEach((termino) => {
+    async function makeRequest() {
+      console.log('before');
 
-        if(filterMatch == false) {
-          if(empresa.Produccion) {
-            empresa.Produccion.forEach((produccion) => {
-              if(produccion.toLowerCase() == termino.trim()) {
-                filterMatch = true;
-              }
-            });
-          }
-        }
-        if(filterMatch == false) {
-          if(empresa.Tecnologia) {
-            empresa.Tecnologia.forEach((tecnologia) => {
-              if(tecnologia.toLowerCase() == termino.trim()) {
-                filterMatch = true;
-              }
-            });
-          }
-        }
-        if(filterMatch == false) {
-          if(empresa.Especialidad) {
-            empresa.Especialidad.forEach((especialidad) => {
-              if(especialidad.toLowerCase() == termino.trim()) {
-                filterMatch = true;
-              }
-            });
-          }
-        }
-        if(filterMatch == false) {
-          if(empresa.Region) {
-            if(empresa.Region.toLowerCase() == termino.trim()) {
-              filterMatch = true;
-            }
-          }
-        }
-        if(filterMatch == false) {
-          if(empresa.Provincia) {
-            if(empresa.Provincia.toLowerCase() == termino.trim()) {
-              filterMatch = true;
-            }
-          }
-        }
-        if(filterMatch == false) {
-          if(empresa.Fabricante) {
-            empresa.Fabricante.forEach((fabricante) => {
-              if(fabricante.toLowerCase() == termino.trim()) {
-                filterMatch = true;
-              }
-            });
-          }
-        }
-        if(filterMatch == false) {
-          if(empresa.Distribuidor) {
-            empresa.Distribuidor.forEach((distribuidor) => {
-              if(distribuidor.toLowerCase() == termino.trim()) {
-                filterMatch = true;
-              }
-            });
-          }
-        }
+      await delay(1000);
+
+      const terminosDeBusqueda = textoFiltradoItem.toLowerCase().split(',');
+    
+      //const empresasFiltradasPorTexto = empresas;
+      const empresasFiltradasPorTexto = [];
+      let filterMatch;
+      
+      allCompanies.forEach((empresa) => {
+        filterMatch = false;
         
-
-      });
-      
-      if(filterMatch == true) {
-        empresasFiltradasPorTexto.push(empresa);
-      }
-    });
-
-    /*const empresasFiltradasPorTexto = empresas.filter((empresa) =>
-      (empresa.Produccion &&
-        terminosDeBusqueda.some((termino) => 
-          empresa.Produccion.some((produccion) =>
-            produccion.toLowerCase().includes(termino.trim())
-          )
-        )
-      ) ||
-      (empresa.Tecnologia &&
-        terminosDeBusqueda.some((termino) =>
-          empresa.Tecnologia.some((tecnologia) =>
-            tecnologia.toLowerCase().includes(termino.trim())
-          )
-        )) ||
-      (empresa.Especialidad &&
-        terminosDeBusqueda.some((termino) =>
-          empresa.Especialidad.some((especialidad) =>
-            especialidad.toLowerCase().includes(termino.trim())
-          )
-        )) ||
-      (empresa.Region &&
-        terminosDeBusqueda.some((termino) =>
-          empresa.Region.toLowerCase().includes(termino.trim())
-        )) ||
-      (empresa.Provincia &&
-        terminosDeBusqueda.some((termino) =>
-          empresa.Provincia.toLowerCase().includes(termino.trim())
-        )) ||
-        (empresa.Fabricante && terminosDeBusqueda.some((termino) =>
-        empresa.Fabricante.some((fabricante) =>
-          fabricante.toLowerCase().includes(termino.trim())
-        )
-      )) ||
-      (empresa.Distribuidor && terminosDeBusqueda.some((termino) =>
-        empresa.Distribuidor.some((distribuidor) =>
-          distribuidor.toLowerCase().includes(termino.trim())
-        )
-      ))
-    );*/
+        terminosDeBusqueda.forEach((termino) => {
   
-    const empresasFiltradas = filtrarEmpresas(empresasFiltradasPorTexto);
-    setEmpresas(empresasFiltradas);
+          if(filterMatch == false) {
+            if(empresa.Produccion) {
+              empresa.Produccion.forEach((produccion) => {
+                if(produccion.toLowerCase() == termino.trim()) {
+                  filterMatch = true;
+                }
+              });
+            }
+          }
+          if(filterMatch == false) {
+            if(empresa.Tecnologia) {
+              empresa.Tecnologia.forEach((tecnologia) => {
+                if(tecnologia.toLowerCase() == termino.trim()) {
+                  filterMatch = true;
+                }
+              });
+            }
+          }
+          if(filterMatch == false) {
+            if(empresa.Especialidad) {
+              empresa.Especialidad.forEach((especialidad) => {
+                if(especialidad.toLowerCase() == termino.trim()) {
+                  filterMatch = true;
+                }
+              });
+            }
+          }
+          if(filterMatch == false) {
+            if(empresa.Region) {
+              if(empresa.Region.toLowerCase() == termino.trim()) {
+                filterMatch = true;
+              }
+            }
+          }
+          if(filterMatch == false) {
+            if(empresa.Provincia) {
+              if(empresa.Provincia.toLowerCase() == termino.trim()) {
+                filterMatch = true;
+              }
+            }
+          }
+          if(filterMatch == false) {
+            if(empresa.Fabricante) {
+              empresa.Fabricante.forEach((fabricante) => {
+                if(fabricante.toLowerCase() == termino.trim()) {
+                  filterMatch = true;
+                }
+              });
+            }
+          }
+          if(filterMatch == false) {
+            if(empresa.Distribuidor) {
+              empresa.Distribuidor.forEach((distribuidor) => {
+                if(distribuidor.toLowerCase() == termino.trim()) {
+                  filterMatch = true;
+                }
+              });
+            }
+          }
+          
+  
+        });
+        
+        if(filterMatch == true) {
+          empresasFiltradasPorTexto.push(empresa);
+        }
+      });
+  
+      /*const empresasFiltradasPorTexto = empresas.filter((empresa) =>
+        (empresa.Produccion &&
+          terminosDeBusqueda.some((termino) => 
+            empresa.Produccion.some((produccion) =>
+              produccion.toLowerCase().includes(termino.trim())
+            )
+          )
+        ) ||
+        (empresa.Tecnologia &&
+          terminosDeBusqueda.some((termino) =>
+            empresa.Tecnologia.some((tecnologia) =>
+              tecnologia.toLowerCase().includes(termino.trim())
+            )
+          )) ||
+        (empresa.Especialidad &&
+          terminosDeBusqueda.some((termino) =>
+            empresa.Especialidad.some((especialidad) =>
+              especialidad.toLowerCase().includes(termino.trim())
+            )
+          )) ||
+        (empresa.Region &&
+          terminosDeBusqueda.some((termino) =>
+            empresa.Region.toLowerCase().includes(termino.trim())
+          )) ||
+        (empresa.Provincia &&
+          terminosDeBusqueda.some((termino) =>
+            empresa.Provincia.toLowerCase().includes(termino.trim())
+          )) ||
+          (empresa.Fabricante && terminosDeBusqueda.some((termino) =>
+          empresa.Fabricante.some((fabricante) =>
+            fabricante.toLowerCase().includes(termino.trim())
+          )
+        )) ||
+        (empresa.Distribuidor && terminosDeBusqueda.some((termino) =>
+          empresa.Distribuidor.some((distribuidor) =>
+            distribuidor.toLowerCase().includes(termino.trim())
+          )
+        ))
+      );*/
     
-    setPagina(1);
+      const empresasFiltradas = filtrarEmpresas(empresasFiltradasPorTexto);
+      setEmpresas(empresasFiltradas);
+      
+      setPagina(1);      
+
+      console.log('after');
+    }
+
+    makeRequest();
+
+
   }, [textoFiltradoItem]);
   
 
