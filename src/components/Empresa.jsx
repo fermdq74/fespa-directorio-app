@@ -67,7 +67,7 @@ export default function Empresa({ empresa }) {
                 <p><span>Tecnología:</span> {empresa.Tecnologia.join(', ')}</p>
               )}
               {empresa.Fabricante && (
-                <p><span>Fabricante:</span> {empresa.Fabricante}.</p>
+                <p><span>Fabricante:</span> {empresa.Fabricante.join(', ')}.</p>
               )}
               {empresa.Especialidad && (
                 <p><span>Especialidad:</span> {empresa.Especialidad.join(', ')}</p>

@@ -1,7 +1,7 @@
+ 
   .bg-body-tertiary {
-    background-color: #F7F7F5!important;
+    background-color: transparent!important;
   }
-  
   .collapse.navbar-collapse {
     justify-content: end;
   }
