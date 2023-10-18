@@ -100,31 +100,108 @@ const tecnologíaDeImpresiónColab = [
 ];
 
 
-export default function SocioColaboradores(){
+export default function SocioColaboradores(distribuidorSelection, setDistribuidorSelection, fabricanteSelection, setFabricanteSelection,tecnologiaColabSelection, setTecnologiaColabSelection){
 
-  const [distribuidorSelection, setDistribuidorSelection] = React.useState([]);
+  /*const [distribuidorSelection, setDistribuidorSelection] = React.useState([]);
   const [fabricanteSelection, setFabricanteSelection] = React.useState([]);
-  const [tecnologiaColabSelection, setTecnologiaColabSelection] = React.useState([]);
+  const [tecnologiaColabSelection, setTecnologiaColabSelection] = React.useState([]);*/
 
   const [provinciaSelection, setProvinciaSelection] = React.useState([]);
   const [regionSelection, setRegionSelection] = React.useState([]);
+  const [provinciaStatus, setProvinciaStatus] = React.useState(false);
+  const [regionStatus, setRegionStatus] = React.useState(false);
 
 
   const handleDistribuidorChange = (event) => {
     setDistribuidorSelection(event.target.value);
-    addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, ...provinciaSelection, ...regionSelection]);
+    if((provinciaStatus == false) && (regionStatus == false)) {
+      addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion']);
+    }else if((provinciaStatus == true) && (regionStatus == false)){
+      if(provinciaSelection.length == 0) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion']);
+      }else{
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, ...provinciaSelection, 'emptyRegion']);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == true)){
+      if(regionSelection.length == 0) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion']);
+      }else{
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, 'emptyProvincia', ...regionSelection]);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == true)){
+      if((regionSelection.length == 0) && (provinciaSelection.length == 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion']);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length == 0)){
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, 'emptyProvincia', ...regionSelection]);
+      }else if((regionSelection.length == 0) && (provinciaSelection.length > 0)){
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, ...provinciaSelection, 'emptyRegion']);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length > 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, ...provinciaSelection, ...regionSelection]);
+      }
+    }
+
     //addFilterItem(event.target.value);
   };
 
   const handleFabricanteChange = (event) => {
     setFabricanteSelection(event.target.value);
-    addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, ...provinciaSelection, ...regionSelection]);
+    if((provinciaStatus == false) && (regionStatus == false)) {
+      addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion']);
+    }else if((provinciaStatus == true) && (regionStatus == false)){
+      if(provinciaSelection.length == 0) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion']);
+      }else{
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, ...provinciaSelection, 'emptyRegion']);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == true)){
+      if(regionSelection.length == 0) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion']);
+      }else{
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, 'emptyProvincia', ...regionSelection]);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == true)){
+      if((regionSelection.length == 0) && (provinciaSelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion']);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length == 0)){
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, 'emptyProvincia', ...regionSelection]);
+      }else if((regionSelection.length == 0) && (provinciaSelection.length > 0)){
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, ...provinciaSelection, 'emptyRegion']);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, ...provinciaSelection, ...regionSelection]);
+      }
+    }
+
     //addFilterItem(event.target.value);
   };
 
   const handleTecnologiaColabChange = (event) => {
     setTecnologiaColabSelection(event.target.value);
-    addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, ...provinciaSelection, ...regionSelection]);
+    if((provinciaStatus == false) && (regionStatus == false)) {
+      addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, 'emptyProvincia', 'emptyRegion']);
+    }else if((provinciaStatus == true) && (regionStatus == false)){
+      if(provinciaSelection.length == 0) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, 'emptyProvincia', 'emptyRegion']);
+      }else{
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, ...provinciaSelection, 'emptyRegion']);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == true)){
+      if(regionSelection.length == 0) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, 'emptyProvincia', 'emptyRegion']);
+      }else{
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, 'emptyProvincia', ...regionSelection]);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == true)){
+      if((regionSelection.length == 0) && (provinciaSelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, 'emptyProvincia', 'emptyRegion']);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length == 0)){
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, 'emptyProvincia', ...regionSelection]);
+      }else if((regionSelection.length == 0) && (provinciaSelection.length > 0)){
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, ...provinciaSelection, 'emptyRegion']);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, ...provinciaSelection, ...regionSelection]);
+      }
+    }
+
     //addFilterItem(event.target.value);
   };
 
@@ -222,7 +299,7 @@ export default function SocioColaboradores(){
       </div>
 
       <div id="localidad">
-        <Localidad filter1={distribuidorSelection} filter2={fabricanteSelection} filter3={tecnologiaColabSelection} provinciaSelection={provinciaSelection} setProvinciaSelection={setProvinciaSelection} regionSelection={regionSelection} setRegionSelection={setRegionSelection} />
+        <Localidad filter1={distribuidorSelection} filter2={fabricanteSelection} filter3={tecnologiaColabSelection} provinciaSelection={provinciaSelection} setProvinciaSelection={setProvinciaSelection} regionSelection={regionSelection} setRegionSelection={setRegionSelection} provinciaStatus={provinciaStatus} setProvinciaStatus={setProvinciaStatus} regionStatus={regionStatus} setRegionStatus={setRegionStatus} />
       </div>
     </>
   );

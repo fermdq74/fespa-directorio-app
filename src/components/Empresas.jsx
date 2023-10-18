@@ -31,11 +31,14 @@ export default function Empresas() {
   //constant with all companies obtained from the API
   let [allCompanies, setAllCompanies] = useState([]);
 
+  const [companyFilterOne, setCompanyFilterOne] = useState([]);
+  const [companyFilterTwo, setCompanyFilterTwo] = useState([]);
+  const [companyFilterThree, setCompanyFilterThree] = useState([]);
+
  useEffect(() => {
 
   if (textoFiltradoItem.trim() === '') {
     if (location.pathname === "/socio-colaboradores") {
-
 
       const fetchData = async () => {
 
@@ -57,12 +60,13 @@ export default function Empresas() {
       fetchData()
         .catch(console.error);
         
-        /*
-        let Colab = ColabJson;
+    
+
+        /*let Colab = ColabJson;
         setAllCompanies(Colab);
         setEmpresas(Colab);
-        setIsLoading(false);
-        */
+        setIsLoading(false);*/
+        
     } else if (
       location.pathname === "/asociados" ||
       location.pathname === "/"
@@ -88,11 +92,17 @@ export default function Empresas() {
       fetchData()
         .catch(console.error);
         
+
+        /*let Asoc = AsocJson;
+        setAllCompanies(Asoc.results);
+        setEmpresas(Asoc.results);
+        setIsLoading(false);*/
+        
     }
   }
-}, [textoFiltradoItem, location.pathname, empresas]);
+}, [textoFiltradoItem, location.pathname]);
 
-  const filtrarEmpresas = (listaEmpresas) => {
+  /*const filtrarEmpresas = (listaEmpresas) => {
     return listaEmpresas.filter(
       (empresa) =>
       (empresa.Name && empresa.Name.toLowerCase().includes(filtro.toLowerCase())) ||
@@ -104,150 +114,131 @@ export default function Empresas() {
       (empresa.Distribuidor && empresa.Distribuidor.some((distribuidor) => distribuidor.toLowerCase().includes(filtro.toLowerCase()))) ||
       (empresa.Fabricante && empresa.Fabricante.some((fabricante) => fabricante.toLowerCase().includes(filtro.toLowerCase())))
     )
-  };
+  };*/
   
   useEffect(() => {
 
+    
     const delay = ms => new Promise(
       resolve => setTimeout(resolve, ms)
     );
     
     async function makeRequest() {
+
       console.log('before');
 
       await delay(1000);
 
-      const terminosDeBusqueda = textoFiltradoItem.toLowerCase().split(',');
-    
-      //const empresasFiltradasPorTexto = empresas;
-      const empresasFiltradasPorTexto = [];
-      let filterMatch;
+      const terminosDeBusqueda = textoFiltradoItem ? textoFiltradoItem.toLowerCase().split(',') : [];
       
-      allCompanies.forEach((empresa) => {
-        filterMatch = false;
-        
-        terminosDeBusqueda.forEach((termino) => {
-  
-          if(filterMatch == false) {
-            if(empresa.Produccion) {
-              empresa.Produccion.forEach((produccion) => {
-                if(produccion.toLowerCase() == termino.trim()) {
-                  filterMatch = true;
-                }
-              });
-            }
-          }
-          if(filterMatch == false) {
-            if(empresa.Tecnologia) {
-              empresa.Tecnologia.forEach((tecnologia) => {
-                if(tecnologia.toLowerCase() == termino.trim()) {
-                  filterMatch = true;
-                }
-              });
-            }
-          }
-          if(filterMatch == false) {
-            if(empresa.Especialidad) {
-              empresa.Especialidad.forEach((especialidad) => {
-                if(especialidad.toLowerCase() == termino.trim()) {
-                  filterMatch = true;
-                }
-              });
-            }
-          }
-          if(filterMatch == false) {
-            if(empresa.Region) {
-              if(empresa.Region.toLowerCase() == termino.trim()) {
-                filterMatch = true;
+      let empresasFiltradasPorTexto = [];
+      let filterMatch;
+      let locationFilter;
+
+      if((terminosDeBusqueda.length == 0) || ((terminosDeBusqueda.length == 2) && ((terminosDeBusqueda[0].trim() == 'emptyprovincia') && (terminosDeBusqueda[1].trim() == 'emptyregion'))) ) {
+        empresasFiltradasPorTexto = allCompanies;
+      }else{
+        allCompanies.forEach((empresa) => {
+          
+          filterMatch = false;
+          locationFilter = false;
+
+          terminosDeBusqueda.forEach((termino) => {
+
+            if(filterMatch == false) {
+              if(empresa.Produccion) {
+                empresa.Produccion.forEach((produccion) => {
+                  if(produccion.toLowerCase() == termino.trim()) {
+                    filterMatch = true;
+                  }
+                });
               }
             }
-          }
-          if(filterMatch == false) {
-            if(empresa.Provincia) {
-              if(empresa.Provincia.toLowerCase() == termino.trim()) {
-                filterMatch = true;
+            if(filterMatch == false) {
+              if(empresa.Tecnologia) {
+                empresa.Tecnologia.forEach((tecnologia) => {
+                  if(tecnologia.toLowerCase() == termino.trim()) {
+                    filterMatch = true;
+                  }
+                });
               }
             }
-          }
-          if(filterMatch == false) {
-            if(empresa.Fabricante) {
-              empresa.Fabricante.forEach((fabricante) => {
-                if(fabricante.toLowerCase() == termino.trim()) {
-                  filterMatch = true;
-                }
-              });
+            if(filterMatch == false) {
+              if(empresa.Especialidad) {
+                empresa.Especialidad.forEach((especialidad) => {
+                  if(especialidad.toLowerCase() == termino.trim()) {
+                    filterMatch = true;
+                  }
+                });
+              }
             }
-          }
-          if(filterMatch == false) {
-            if(empresa.Distribuidor) {
-              empresa.Distribuidor.forEach((distribuidor) => {
-                if(distribuidor.toLowerCase() == termino.trim()) {
-                  filterMatch = true;
+            if(locationFilter == false) {
+              if(empresa.Region) {
+                if(empresa.Region.toLowerCase() == termino.trim()) {
+                  locationFilter = true;
                 }
-              });
+              }
+            }
+            if(locationFilter == false) {
+              if(empresa.Provincia) {
+                if(empresa.Provincia.toLowerCase() == termino.trim()) {
+                  locationFilter = true;
+                }
+              }
+            }
+            if(filterMatch == false) {
+              if(empresa.Fabricante) {
+                empresa.Fabricante.forEach((fabricante) => {
+                  if(fabricante.toLowerCase() == termino.trim()) {
+                    filterMatch = true;
+                  }
+                });
+              }
+            }
+            if(filterMatch == false) {
+              if(empresa.Distribuidor) {
+                empresa.Distribuidor.forEach((distribuidor) => {
+                  if(distribuidor.toLowerCase() == termino.trim()) {
+                    filterMatch = true;
+                  }
+                });
+              }
+            }        
+    
+          });
+
+          if(textoFiltradoItem.includes('emptyProvincia') && textoFiltradoItem.includes('emptyRegion')) {
+            if(filterMatch == true) {
+              empresasFiltradasPorTexto.push(empresa);
+            }  
+          }else{
+            if((companyFilterOne.length == 0) && (companyFilterTwo.length == 0) && (companyFilterThree.length == 0)) {
+              if(locationFilter == true) {
+                empresasFiltradasPorTexto.push(empresa);
+              }
+            }else{
+              if((locationFilter == true) && (filterMatch == true)) {
+                empresasFiltradasPorTexto.push(empresa);
+              }
             }
           }
           
-  
+          
         });
-        
-        if(filterMatch == true) {
-          empresasFiltradasPorTexto.push(empresa);
-        }
-      });
-  
-      /*const empresasFiltradasPorTexto = empresas.filter((empresa) =>
-        (empresa.Produccion &&
-          terminosDeBusqueda.some((termino) => 
-            empresa.Produccion.some((produccion) =>
-              produccion.toLowerCase().includes(termino.trim())
-            )
-          )
-        ) ||
-        (empresa.Tecnologia &&
-          terminosDeBusqueda.some((termino) =>
-            empresa.Tecnologia.some((tecnologia) =>
-              tecnologia.toLowerCase().includes(termino.trim())
-            )
-          )) ||
-        (empresa.Especialidad &&
-          terminosDeBusqueda.some((termino) =>
-            empresa.Especialidad.some((especialidad) =>
-              especialidad.toLowerCase().includes(termino.trim())
-            )
-          )) ||
-        (empresa.Region &&
-          terminosDeBusqueda.some((termino) =>
-            empresa.Region.toLowerCase().includes(termino.trim())
-          )) ||
-        (empresa.Provincia &&
-          terminosDeBusqueda.some((termino) =>
-            empresa.Provincia.toLowerCase().includes(termino.trim())
-          )) ||
-          (empresa.Fabricante && terminosDeBusqueda.some((termino) =>
-          empresa.Fabricante.some((fabricante) =>
-            fabricante.toLowerCase().includes(termino.trim())
-          )
-        )) ||
-        (empresa.Distribuidor && terminosDeBusqueda.some((termino) =>
-          empresa.Distribuidor.some((distribuidor) =>
-            distribuidor.toLowerCase().includes(termino.trim())
-          )
-        ))
-      );*/
+      }
+     
+      //const empresasFiltradas = filtrarEmpresas(empresasFiltradasPorTexto);
+
+      setEmpresas(empresasFiltradasPorTexto);
     
-      const empresasFiltradas = filtrarEmpresas(empresasFiltradasPorTexto);
-      setEmpresas(empresasFiltradas);
-      
-      setPagina(1);      
+      setPagina(1);
 
       console.log('after');
     }
 
     makeRequest();
 
-
-  }, [textoFiltradoItem]);
+  }, [textoFiltradoItem, allCompanies]);
   
 
   const handlePaginaChange = (pageNumber) => {
@@ -257,8 +248,9 @@ export default function Empresas() {
   useEffect(() => {
     setPagina(1);
   }, [filtro]);
-
-  const empresasFiltradas = filtrarEmpresas(empresas);
+  
+  //const empresasFiltradas = filtrarEmpresas(empresas);
+  const empresasFiltradas = empresas;
   const totalEmpresas = empresasFiltradas.length;
   const totalPaginas = Math.ceil(totalEmpresas / empresasPorPagina);
   const indiceInicial = (pagina - 1) * empresasPorPagina;
@@ -280,11 +272,11 @@ export default function Empresas() {
       <div className="main">
         <div className="filtrado">
           <Routes>
-            <Route path="/" element={<Asociados />} />
-            <Route path="/asociados" element={<Asociados />} />
+            <Route path="/" element={<Asociados produccionSelection={companyFilterOne} setProduccionSelection={setCompanyFilterOne} tecnologiaSelection={companyFilterTwo} setTecnologiaSelection={setCompanyFilterTwo} especialidadSelection={companyFilterThree} setEspecialidadSelection={setCompanyFilterThree} />} />
+            <Route path="/asociados" element={<Asociados produccionSelection={companyFilterOne} setProduccionSelection={setCompanyFilterOne} tecnologiaSelection={companyFilterTwo} setTecnologiaSelection={setCompanyFilterTwo} especialidadSelection={companyFilterThree} setEspecialidadSelection={setCompanyFilterThree} />} />
             <Route
               path="/socio-colaboradores"
-              element={<SocioColaboradores />}
+              element={<SocioColaboradores distribuidorSelection={companyFilterOne} setDistribuidorSelection={setCompanyFilterOne} fabricanteSelection={companyFilterTwo} setFabricanteSelection={setCompanyFilterTwo} tecnologiaColabSelection={companyFilterThree} setTecnologiaColabSelection={setCompanyFilterThree} />}
             />
           </Routes>
         </div>

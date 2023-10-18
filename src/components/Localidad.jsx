@@ -95,7 +95,7 @@ const MenuProps = {
    },
 };
 
-export default function Localidad({filter1, filter2, filter3, provinciaSelection, setProvinciaSelection, regionSelection, setRegionSelection}) {
+export default function Localidad({filter1, filter2, filter3, provinciaSelection, setProvinciaSelection, regionSelection, setRegionSelection, provinciaStatus, setProvinciaStatus, regionStatus, setRegionStatus}) {
   /*
   const [provinciaSelection, setProvinciaSelection] = React.useState([]);
   const [regionSelection, setRegionSelection] = React.useState([]);
@@ -103,17 +103,60 @@ export default function Localidad({filter1, filter2, filter3, provinciaSelection
 
   const handleProvinciaChange = (event) => {
     setProvinciaSelection(event.target.value);
-    addFilterItem([...filter1, ...filter2, ...filter3, ...event.target.value, ...regionSelection]);
+    setProvinciaStatus(true);
+    if(event.target.value.length == 0) {
+      if(regionStatus == false){
+        addFilterItem([...filter1, ...filter2, ...filter3, 'emptyProvincia', 'emptyRegion']);
+      }else{
+        if(regionSelection.length == 0){
+          addFilterItem([...filter1, ...filter2, ...filter3, 'emptyProvincia', 'emptyRegion']);
+        }else{
+          addFilterItem([...filter1, ...filter2, ...filter3, 'emptyProvincia', ...regionSelection]);
+        }
+        
+      }
+    }else{
+      if(regionStatus == false){
+        addFilterItem([...filter1, ...filter2, ...filter3, ...event.target.value, 'emptyRegion']);
+      }else{
+        if(regionSelection.length == 0){
+          addFilterItem([...filter1, ...filter2, ...filter3, ...event.target.value, 'emptyRegion']);
+        }else{
+          addFilterItem([...filter1, ...filter2, ...filter3, ...event.target.value, ...regionSelection]);
+        }
+      }
+    }
     //addFilterItem(event.target.value);
-
   };
 
    const handleRegionChange = (event) => {
      setRegionSelection(event.target.value);
-     addFilterItem([...filter1, ...filter2, ...filter3, ...provinciaSelection, ...event.target.value]);
+     setRegionStatus(true);
+     if(event.target.value.length == 0) {
+      if(provinciaStatus == false) {
+        addFilterItem([...filter1, ...filter2, ...filter3, 'emptyProvincia', 'emptyRegion']); 
+      }else{
+        if(provinciaSelection.length == 0) {
+          addFilterItem([...filter1, ...filter2, ...filter3, 'emptyProvincia', 'emptyRegion']); 
+        }else{
+          addFilterItem([...filter1, ...filter2, ...filter3, ...provinciaSelection, 'emptyRegion']); 
+        }
+      }
+     }else{
+      if(provinciaStatus == false) {
+        addFilterItem([...filter1, ...filter2, ...filter3, 'emptyProvincia', ...event.target.value]);
+      }else{
+        if(provinciaSelection.length == 0) {
+          addFilterItem([...filter1, ...filter2, ...filter3, 'emptyProvincia', ...event.target.value]);
+        }else{
+          addFilterItem([...filter1, ...filter2, ...filter3, ...provinciaSelection, ...event.target.value]);
+        }
+      }
+     }
      //addFilterItem(event.target.value);
+     
    };
-
+   
   const { addFilterItem } = useContext(FilterContext);
 
   return (
