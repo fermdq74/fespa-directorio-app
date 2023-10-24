@@ -100,7 +100,7 @@ const tecnologíaDeImpresiónColab = [
 ];
 
 
-export default function SocioColaboradores(distribuidorSelection, setDistribuidorSelection, fabricanteSelection, setFabricanteSelection,tecnologiaColabSelection, setTecnologiaColabSelection){
+export default function SocioColaboradores({distribuidorSelection, setDistribuidorSelection, fabricanteSelection, setFabricanteSelection,tecnologiaColabSelection, setTecnologiaColabSelection}){
 
   /*const [distribuidorSelection, setDistribuidorSelection] = React.useState([]);
   const [fabricanteSelection, setFabricanteSelection] = React.useState([]);

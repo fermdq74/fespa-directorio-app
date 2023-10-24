@@ -102,7 +102,7 @@ export default function Empresas() {
   }
 }, [textoFiltradoItem, location.pathname]);
 
-  /*const filtrarEmpresas = (listaEmpresas) => {
+  const filtrarEmpresas = (listaEmpresas) => {
     return listaEmpresas.filter(
       (empresa) =>
       (empresa.Name && empresa.Name.toLowerCase().includes(filtro.toLowerCase())) ||
@@ -114,7 +114,7 @@ export default function Empresas() {
       (empresa.Distribuidor && empresa.Distribuidor.some((distribuidor) => distribuidor.toLowerCase().includes(filtro.toLowerCase()))) ||
       (empresa.Fabricante && empresa.Fabricante.some((fabricante) => fabricante.toLowerCase().includes(filtro.toLowerCase())))
     )
-  };*/
+  };
   
   useEffect(() => {
 
@@ -227,9 +227,9 @@ export default function Empresas() {
         });
       }
      
-      //const empresasFiltradas = filtrarEmpresas(empresasFiltradasPorTexto);
+      const empresasFiltradas = filtrarEmpresas(empresasFiltradasPorTexto);
 
-      setEmpresas(empresasFiltradasPorTexto);
+      setEmpresas(empresasFiltradas);
     
       setPagina(1);
 
@@ -249,8 +249,8 @@ export default function Empresas() {
     setPagina(1);
   }, [filtro]);
   
-  //const empresasFiltradas = filtrarEmpresas(empresas);
-  const empresasFiltradas = empresas;
+  const empresasFiltradas = filtrarEmpresas(empresas);
+  //const empresasFiltradas = empresas;
   const totalEmpresas = empresasFiltradas.length;
   const totalPaginas = Math.ceil(totalEmpresas / empresasPorPagina);
   const indiceInicial = (pagina - 1) * empresasPorPagina;
