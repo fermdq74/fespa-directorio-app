@@ -20,11 +20,11 @@ export default function NavBar() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <img
+        <a href="/"><img
           src="/img/Logo-Fespa.png"
           className="d-inline-block align-top"
           alt="fespa"
-        />
+        /></a>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="colab-asoc">
@@ -42,7 +42,7 @@ export default function NavBar() {
               onClick={() => handleNavLinkClick("socio-colaboradores")}
               href="socio-colaboradores"
             >
-              SOCIO COLABORADORES
+              SOCIOS COLABORADORES
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
