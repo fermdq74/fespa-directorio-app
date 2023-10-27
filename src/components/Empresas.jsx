@@ -135,7 +135,10 @@ export default function Empresas() {
       let filterMatch;
       let locationFilter;
 
-      if((terminosDeBusqueda.length == 0) || ((terminosDeBusqueda.length == 2) && ((terminosDeBusqueda[0].trim() == 'emptyprovincia') && (terminosDeBusqueda[1].trim() == 'emptyregion'))) ) {
+      console.log("terminos de busqueda: ", terminosDeBusqueda);
+      console.log("EMPRESAS: ", allCompanies);
+
+      if((terminosDeBusqueda.length == 0) || ((terminosDeBusqueda.length == 3) && ((terminosDeBusqueda[0].trim() == 'emptyprovincia') && (terminosDeBusqueda[1].trim() == 'emptyregion') && (terminosDeBusqueda[2].trim() == 'emptycountry'))) ) {
         empresasFiltradasPorTexto = allCompanies;
       }else{
         allCompanies.forEach((empresa) => {
@@ -186,6 +189,15 @@ export default function Empresas() {
                 }
               }
             }
+            if(locationFilter == false) {
+              if(empresa.Pais) {
+                empresa.Pais.forEach((pais) => {
+                  if(pais.toLowerCase() == termino.trim()) {
+                    locationFilter = true;
+                  }
+                });
+              }
+            }
             if(filterMatch == false) {
               if(empresa.Fabricante) {
                 empresa.Fabricante.forEach((fabricante) => {
@@ -207,7 +219,7 @@ export default function Empresas() {
     
           });
 
-          if(textoFiltradoItem.includes('emptyProvincia') && textoFiltradoItem.includes('emptyRegion')) {
+          if(textoFiltradoItem.includes('emptyProvincia') && textoFiltradoItem.includes('emptyRegion') && textoFiltradoItem.includes('emptyCountry')) {
             if(filterMatch == true) {
               empresasFiltradasPorTexto.push(empresa);
             }  

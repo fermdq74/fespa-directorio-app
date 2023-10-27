@@ -110,11 +110,86 @@ export default function SocioColaboradores({distribuidorSelection, setDistribuid
   const [regionSelection, setRegionSelection] = React.useState([]);
   const [provinciaStatus, setProvinciaStatus] = React.useState(false);
   const [regionStatus, setRegionStatus] = React.useState(false);
+  const [countrySelection, setCountrySelection] = React.useState([]);
+  const [countryStatus, setCountryStatus] = React.useState(false);
 
 
   const handleDistribuidorChange = (event) => {
     setDistribuidorSelection(event.target.value);
-    if((provinciaStatus == false) && (regionStatus == false)) {
+
+    if((provinciaStatus == false) && (regionStatus == false) && (countryStatus == false)) {
+      addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+    }else if((provinciaStatus == true) && (regionStatus == false) && (countryStatus == false)){
+      if(provinciaSelection.length == 0) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else{
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == true) && (countryStatus == false)){
+      if(regionSelection.length == 0) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else{
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == false) && (countryStatus == true)){
+      if(countrySelection.length == 0) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else{
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == true) && (countryStatus == false)){
+      if((provinciaSelection.length == 0) && (regionSelection.length == 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length > 0) && (regionSelection.length == 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length == 0) && (regionSelection.length > 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }else if((provinciaSelection.length > 0) && (regionSelection.length > 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, ...provinciaSelection, ...regionSelection, 'emptyCountry']);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == false) && (countryStatus == true)){
+      if((provinciaSelection.length == 0) && (countrySelection.length == 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length > 0) && (countrySelection.length == 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length == 0) && (countrySelection.length > 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }else if((provinciaSelection.length > 0) && (countrySelection.length > 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', ...countrySelection]);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == true) && (countryStatus == true)){
+      if((countrySelection.length == 0) && (regionSelection.length == 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((countrySelection.length > 0) && (regionSelection.length == 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }else if((countrySelection.length == 0) && (regionSelection.length > 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }else if((countrySelection.length > 0) && (regionSelection.length > 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', ...regionSelection, ...countrySelection]);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == true) && (countryStatus == true)){
+      if((regionSelection.length == 0) && (provinciaSelection.length == 0) && (countrySelection.length == 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length == 0) && (countrySelection.length == 0)){
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }else if((regionSelection.length == 0) && (provinciaSelection.length > 0) && (countrySelection.length == 0)){
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }else if((regionSelection.length == 0) && (provinciaSelection.length == 0) && (countrySelection.length > 0)){
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length > 0) && (countrySelection.length == 0)){
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, ...provinciaSelection, ...regionSelection, 'emptyCountry']);  
+      }else if((regionSelection.length > 0) && (provinciaSelection.length == 0) && (countrySelection.length > 0)){
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', ...countrySelection]);  
+      }else if((regionSelection.length == 0) && (provinciaSelection.length > 0) && (countrySelection.length > 0)){
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, 'emptyProvincia', ...regionSelection, ...countrySelection]);  
+      }else if((regionSelection.length > 0) && (provinciaSelection.length > 0) && (countrySelection.length > 0)) {
+        addFilterItem([...event.target.value, ...fabricanteSelection, ...especialidadSelection, ...provinciaSelection, ...regionSelection, ...countrySelection]);
+      }
+    }
+
+
+    //old conditional
+    /*if((provinciaStatus == false) && (regionStatus == false)) {
       addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion']);
     }else if((provinciaStatus == true) && (regionStatus == false)){
       if(provinciaSelection.length == 0) {
@@ -138,14 +213,86 @@ export default function SocioColaboradores({distribuidorSelection, setDistribuid
       }else if((regionSelection.length > 0) && (provinciaSelection.length > 0)) {
         addFilterItem([...event.target.value, ...fabricanteSelection, ...tecnologiaColabSelection, ...provinciaSelection, ...regionSelection]);
       }
-    }
+    }*/
+    //end old conditional
 
     //addFilterItem(event.target.value);
   };
 
   const handleFabricanteChange = (event) => {
     setFabricanteSelection(event.target.value);
-    if((provinciaStatus == false) && (regionStatus == false)) {
+
+    if((provinciaStatus == false) && (regionStatus == false) && (countryStatus == false)) {
+      addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+    }else if((provinciaStatus == true) && (regionStatus == false) && (countryStatus == false)){
+      if(provinciaSelection.length == 0) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else{
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == true) && (countryStatus == false)){
+      if(regionSelection.length == 0) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else{
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == false) && (countryStatus == true)){
+      if(countrySelection.length == 0) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else{
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == true) && (countryStatus == false)){
+      if((provinciaSelection.length == 0) && (regionSelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length > 0) && (regionSelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length == 0) && (regionSelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }else if((provinciaSelection.length > 0) && (regionSelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, ...provinciaSelection, ...regionSelection, 'emptyCountry']);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == false) && (countryStatus == true)){
+      if((provinciaSelection.length == 0) && (countrySelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length > 0) && (countrySelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length == 0) && (countrySelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }else if((provinciaSelection.length > 0) && (countrySelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', ...countrySelection]);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == true) && (countryStatus == true)){
+      if((countrySelection.length == 0) && (regionSelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((countrySelection.length > 0) && (regionSelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }else if((countrySelection.length == 0) && (regionSelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }else if((countrySelection.length > 0) && (regionSelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', ...regionSelection, ...countrySelection]);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == true) && (countryStatus == true)){
+      if((regionSelection.length == 0) && (provinciaSelection.length == 0) && (countrySelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length == 0) && (countrySelection.length == 0)){
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }else if((regionSelection.length == 0) && (provinciaSelection.length > 0) && (countrySelection.length == 0)){
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }else if((regionSelection.length == 0) && (provinciaSelection.length == 0) && (countrySelection.length > 0)){
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length > 0) && (countrySelection.length == 0)){
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, ...provinciaSelection, ...regionSelection, 'emptyCountry']);  
+      }else if((regionSelection.length > 0) && (provinciaSelection.length == 0) && (countrySelection.length > 0)){
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, ...provinciaSelection, 'emptyRegion', ...countrySelection]);  
+      }else if((regionSelection.length == 0) && (provinciaSelection.length > 0) && (countrySelection.length > 0)){
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, 'emptyProvincia', ...regionSelection, ...countrySelection]);  
+      }else if((regionSelection.length > 0) && (provinciaSelection.length > 0) && (countrySelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...event.target.value, ...especialidadSelection, ...provinciaSelection, ...regionSelection, ...countrySelection]);
+      }
+    }
+
+    /*if((provinciaStatus == false) && (regionStatus == false)) {
       addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, 'emptyProvincia', 'emptyRegion']);
     }else if((provinciaStatus == true) && (regionStatus == false)){
       if(provinciaSelection.length == 0) {
@@ -169,14 +316,85 @@ export default function SocioColaboradores({distribuidorSelection, setDistribuid
       }else if((regionSelection.length > 0) && (provinciaSelection.length > 0)) {
         addFilterItem([...distribuidorSelection, ...event.target.value, ...tecnologiaColabSelection, ...provinciaSelection, ...regionSelection]);
       }
-    }
+    }*/
 
     //addFilterItem(event.target.value);
   };
 
   const handleTecnologiaColabChange = (event) => {
     setTecnologiaColabSelection(event.target.value);
-    if((provinciaStatus == false) && (regionStatus == false)) {
+
+    if((provinciaStatus == false) && (regionStatus == false) && (countryStatus == false)) {
+      addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+    }else if((provinciaStatus == true) && (regionStatus == false) && (countryStatus == false)){
+      if(provinciaSelection.length == 0) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else{
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == true) && (countryStatus == false)){
+      if(regionSelection.length == 0) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else{
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == false) && (countryStatus == true)){
+      if(countrySelection.length == 0) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else{
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == true) && (countryStatus == false)){
+      if((provinciaSelection.length == 0) && (regionSelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length > 0) && (regionSelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length == 0) && (regionSelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }else if((provinciaSelection.length > 0) && (regionSelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, ...provinciaSelection, ...regionSelection, 'emptyCountry']);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == false) && (countryStatus == true)){
+      if((provinciaSelection.length == 0) && (countrySelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length > 0) && (countrySelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }else if((provinciaSelection.length == 0) && (countrySelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }else if((provinciaSelection.length > 0) && (countrySelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, ...provinciaSelection, 'emptyRegion', ...countrySelection]);
+      }
+    }else if((provinciaStatus == false) && (regionStatus == true) && (countryStatus == true)){
+      if((countrySelection.length == 0) && (regionSelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((countrySelection.length > 0) && (regionSelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }else if((countrySelection.length == 0) && (regionSelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }else if((countrySelection.length > 0) && (regionSelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', ...regionSelection, ...countrySelection]);
+      }
+    }else if((provinciaStatus == true) && (regionStatus == true) && (countryStatus == true)){
+      if((regionSelection.length == 0) && (provinciaSelection.length == 0) && (countrySelection.length == 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', 'emptyCountry']);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length == 0) && (countrySelection.length == 0)){
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', ...regionSelection, 'emptyCountry']);
+      }else if((regionSelection.length == 0) && (provinciaSelection.length > 0) && (countrySelection.length == 0)){
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, ...provinciaSelection, 'emptyRegion', 'emptyCountry']);
+      }else if((regionSelection.length == 0) && (provinciaSelection.length == 0) && (countrySelection.length > 0)){
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', 'emptyRegion', ...countrySelection]);
+      }else if((regionSelection.length > 0) && (provinciaSelection.length > 0) && (countrySelection.length == 0)){
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, ...regionSelection, 'emptyCountry']);  
+      }else if((regionSelection.length > 0) && (provinciaSelection.length == 0) && (countrySelection.length > 0)){
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, ...provinciaSelection, 'emptyRegion', ...countrySelection]);  
+      }else if((regionSelection.length == 0) && (provinciaSelection.length > 0) && (countrySelection.length > 0)){
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, 'emptyProvincia', ...regionSelection, ...countrySelection]);  
+      }else if((regionSelection.length > 0) && (provinciaSelection.length > 0) && (countrySelection.length > 0)) {
+        addFilterItem([...distribuidorSelection, ...fabricanteSelection, ...event.target.value, ...provinciaSelection, ...regionSelection, ...countrySelection]);
+      }
+    }
+
+    /*if((provinciaStatus == false) && (regionStatus == false)) {
       addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, 'emptyProvincia', 'emptyRegion']);
     }else if((provinciaStatus == true) && (regionStatus == false)){
       if(provinciaSelection.length == 0) {
@@ -200,7 +418,7 @@ export default function SocioColaboradores({distribuidorSelection, setDistribuid
       }else if((regionSelection.length > 0) && (provinciaSelection.length > 0)) {
         addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, ...provinciaSelection, ...regionSelection]);
       }
-    }
+    }*/
 
     //addFilterItem(event.target.value);
   };
@@ -299,7 +517,7 @@ export default function SocioColaboradores({distribuidorSelection, setDistribuid
       </div>
 
       <div id="localidad">
-        <Localidad filter1={distribuidorSelection} filter2={fabricanteSelection} filter3={tecnologiaColabSelection} provinciaSelection={provinciaSelection} setProvinciaSelection={setProvinciaSelection} regionSelection={regionSelection} setRegionSelection={setRegionSelection} provinciaStatus={provinciaStatus} setProvinciaStatus={setProvinciaStatus} regionStatus={regionStatus} setRegionStatus={setRegionStatus} />
+        <Localidad filter1={distribuidorSelection} filter2={fabricanteSelection} filter3={tecnologiaColabSelection} provinciaSelection={provinciaSelection} setProvinciaSelection={setProvinciaSelection} regionSelection={regionSelection} setRegionSelection={setRegionSelection} countrySelection={countrySelection} setCountrySelection={setCountrySelection} provinciaStatus={provinciaStatus} setProvinciaStatus={setProvinciaStatus} regionStatus={regionStatus} setRegionStatus={setRegionStatus} countryStatus={countryStatus} setCountryStatus={setCountryStatus} />
       </div>
     </>
   );
