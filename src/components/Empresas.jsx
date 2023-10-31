@@ -241,6 +241,8 @@ export default function Empresas() {
      
       const empresasFiltradas = filtrarEmpresas(empresasFiltradasPorTexto);
 
+      console.log("EMPRESAS FILTRADAS: ", empresasFiltradas);
+
       setEmpresas(empresasFiltradas);
     
       setPagina(1);
