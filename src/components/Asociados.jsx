@@ -45,6 +45,10 @@ const producción = [
   "Producción 3D",
   "Reclamo publicitario",
   "Formación",
+  "Etiquetas",
+  "Papel japonés",
+  "Trabajos sobre vidrio",
+  "Imanes"
 ];
 
 const tecnologíaDeImpresión = [
@@ -55,7 +59,12 @@ const tecnologíaDeImpresión = [
    'Digital para aplicaciones especiales',
    'Rótulos luminosos y letras cajeadas',
    'Transfer',
-   'Diseño'
+   'Diseño',
+   'Offset',
+   'Bordado',
+   'Flexografía',
+   'Termoimpresión',
+   'Custom Xperience'
 ];
 
 const especialidad = [
@@ -71,6 +80,24 @@ const especialidad = [
   "Diseño 3D",
   "Animación",
   "Consultoría",
+  "Braille",
+  "Packaging, envases",
+  "Ropa deportiva",
+  "Merchandising",
+  "Display",
+  "Bordado Textil",
+  "Fabricante Original de iluminación LED eficiente de alta calidad",
+  "Señalización de seguridad",
+  "Decoración de estadios y eventos deportivos",
+  "Impresión sobre aluminio",
+  "Branding y Marketing",
+  "Trofeos",
+  "Creación y Edición de Contenidos Digitales (CGI)",
+  "Pegatinas",
+  "Fotografía",
+  "Vinilado de trenes",
+  "Aerografía",
+  "Álbumes de fotos"
 ];
 
 

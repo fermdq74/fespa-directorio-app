@@ -53,6 +53,9 @@ const distribuidor = [
    'Laminadoras, barnices, recubrimiento',
    'Tintas para impresión digital',
    'Tintas para serigrafía',
+   'Aparatos de Medición',
+   'Flujos de Trabajo',
+   'Materiales sostenibles para impresión digital'
 ];
 
 const fabricante = [
@@ -86,6 +89,7 @@ const fabricante = [
   'Laminadoras, barnices, recubrimiento',
   'Tintas para impresión digital',
   'Tintas para serigrafía',
+  'Materiales sostenibles para impresión digital'
 ]
 
 const tecnologíaDeImpresiónColab = [
