@@ -78,7 +78,7 @@ export default function Empresa({ empresa }) {
                 <p><span>Website:</span><a href={empresa.Website} target="_blank"> {empresa.Website}</a></p>
               )}
               {empresa.Pais && (
-                <p><span>País:</span> {empresa.Pais}</p>
+                <p><span>País:</span> {empresa.Pais.join(', ')}</p>
               )}
             </div>
           </div>

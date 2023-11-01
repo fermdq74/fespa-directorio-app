@@ -30,6 +30,25 @@
     white-space: pre-wrap!important; 
 }
 
+li.MuiButtonBase-root {
+    padding: 0 !important;
+    white-space: pre-wrap!important;
+}
+
+li.MuiButtonBase-root div>span {
+    font-size: 14px !important;
+}
+
+.MuiInputBase-root>div {
+    padding: 10px!important;
+}
+
+@media screen and (max-width: 992px) {
+    .MuiFormControl-root {
+        width: 310px !important;
+    }
+}
+
 .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root:focus {
     background-color: transparent !important;
 }
