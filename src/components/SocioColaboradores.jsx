@@ -325,7 +325,7 @@ export default function SocioColaboradores({distribuidorSelection, setDistribuid
     //addFilterItem(event.target.value);
   };
 
-  const handleTecnologiaColabChange = (event) => {
+  /*const handleTecnologiaColabChange = (event) => {
     setTecnologiaColabSelection(event.target.value);
 
     if((provinciaStatus == false) && (regionStatus == false) && (countryStatus == false)) {
@@ -398,7 +398,8 @@ export default function SocioColaboradores({distribuidorSelection, setDistribuid
       }
     }
 
-    /*if((provinciaStatus == false) && (regionStatus == false)) {
+    //old
+    if((provinciaStatus == false) && (regionStatus == false)) {
       addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, 'emptyProvincia', 'emptyRegion']);
     }else if((provinciaStatus == true) && (regionStatus == false)){
       if(provinciaSelection.length == 0) {
@@ -422,10 +423,10 @@ export default function SocioColaboradores({distribuidorSelection, setDistribuid
       }else if((regionSelection.length > 0) && (provinciaSelection.length > 0)) {
         addFilterItem([...distribuidorSelection, ...fabricanteSelection,...event.target.value, ...provinciaSelection, ...regionSelection]);
       }
-    }*/
+    }//endold
 
     //addFilterItem(event.target.value);
-  };
+  };*/
 
   const { addFilterItem } = useContext(FilterContext);
 
@@ -491,7 +492,7 @@ export default function SocioColaboradores({distribuidorSelection, setDistribuid
             </Select>
           </FormControl>
         </div>
-
+        {/*}
         <div>
           <FormControl sx={{ m: 1, width: 300 }}>
             <InputLabel id="demo-multiple-checkbox-label">
@@ -518,6 +519,7 @@ export default function SocioColaboradores({distribuidorSelection, setDistribuid
             </Select>
           </FormControl>
         </div>
+        {*/}
       </div>
 
       <div id="localidad">
