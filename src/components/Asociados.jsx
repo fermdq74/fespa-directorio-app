@@ -69,8 +69,8 @@ const tecnologíaDeImpresión = [
 
 const especialidad = [
   "Impresión",
-  "Instalación de producción propia",
-  "Instalación para terceros",
+  "Montaje de producción propia",
+  "Montaje para terceros",
   "Producción artística",
   "Decoración de flotas",
   "Especialista en carwrapping",

@@ -59,7 +59,7 @@ export default function Empresa({ empresa }) {
               {empresa.Email && (
                 <div style={{ display: 'flex' }} id="correo">
                   <img className="correo" id="correo" src="/icon/correo.png" alt="contacto" />
-                  <p>{empresa.Email}</p>
+                  <p><a href={'mailto:' + empresa.Email}>{empresa.Email}</a></p>
                 </div>
               )}
               {empresa.Produccion && (
