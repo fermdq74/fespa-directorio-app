@@ -31,7 +31,7 @@ const producción = [
   "Eventos",
   "Rótulos luminosos y letras cajeadas",
   "Productos gráficos de pequeños ",
-  "Formato",
+  "Gran formato",
   "Serigrafía artística",
   "Banderas",
   "Textil decoración",
